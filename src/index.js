@@ -25,15 +25,15 @@ class Store extends BaseStore {
       acl
     } = config
 
-    // Compatible with the aws-sdk's default environment variables
+    // Совместимость с переменными среды aws-sdk по умолчанию
     this.accessKeyId = accessKeyId
     this.secretAccessKey = secretAccessKey
     this.region = process.env.AWS_DEFAULT_REGION || region
 
     this.bucket = process.env.GHOST_STORAGE_ADAPTER_S3_PATH_BUCKET || bucket
 
-    // Optional configurations
-    this.host = process.env.GHOST_STORAGE_ADAPTER_S3_ASSET_HOST || assetHost || `https://s3${this.region === 'us-east-1' ? '' : `-${this.region}`}.amazonaws.com/${this.bucket}`
+    // Дополнительные конфигурации
+    this.host = process.env.GHOST_STORAGE_ADAPTER_S3_ASSET_HOST || assetHost || `https://s3${this.region === 'ru-1' ? '' : `-${this.region}`}.timeweb.com/${this.bucket}`
     this.pathPrefix = stripLeadingSlash(process.env.GHOST_STORAGE_ADAPTER_S3_PATH_PREFIX || pathPrefix || '')
     this.endpoint = process.env.GHOST_STORAGE_ADAPTER_S3_ENDPOINT || endpoint || ''
     this.serverSideEncryption = process.env.GHOST_STORAGE_ADAPTER_S3_SSE || serverSideEncryption || ''
@@ -72,7 +72,7 @@ class Store extends BaseStore {
       s3ForcePathStyle: this.s3ForcePathStyle
     }
 
-    // Set credentials only if provided, falls back to AWS SDK's default provider chain
+    // Установите учетные данные только в том случае, если они предоставлены, и вернитесь к цепочке поставщиков AWS SDK по умолчанию.
     if (this.accessKeyId && this.secretAccessKey) {
       options.credentials = new AWS.Credentials(this.accessKeyId, this.secretAccessKey)
     }
@@ -129,12 +129,12 @@ class Store extends BaseStore {
     options = options || {}
 
     return new Promise((resolve, reject) => {
-      // remove trailing slashes
+      // удалить завершающие косые черты
       let path = (options.path || '').replace(/\/$|\\$/, '')
 
-      // check if path is stored in s3 handled by us
+      // проверьте, хранится ли путь в s3, обрабатываемом нами
       if (!path.startsWith(this.host)) {
-        reject(new Error(`${path} is not stored in s3`))
+        reject(new Error(`${path} не хранится в s3`))
       }
       path = path.substring(this.host.length)
 
