@@ -3,7 +3,7 @@
 An AWS S3 storage adapter for Ghost 1.x
 
 For Ghost 0.10.x and 0.11.x support check out
-[Ghost storage adapter s3 v1.3.0](https://github.com/colinmeinke/ghost-storage-adapter-s3/releases/tag/v1.3.0).
+[Ghost storage adapter s3 v1.3.0](https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3/releases/tag/v1.3.0).
 
 ## Installation
 
@@ -41,7 +41,7 @@ Note 3: if your s3 providers requires path style you can enable it with `forcePa
 
 Note 4: if you use CloudFront the object ACL does not need to be set to "public-read"
 
-Note 5: [Support for AWS4-HMAC-SHA256](https://github.com/colinmeinke/ghost-storage-adapter-s3/issues/43)
+Note 5: [Support for AWS4-HMAC-SHA256](https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3/issues/43)
 
 ### Via environment variables
 

@@ -8,14 +8,14 @@ by the [code of conduct](./CODE_OF_CONDUCT.md).
 ## Issues
 
 Please
-[open an issue](https://github.com/colinmeinke/ghost-storage-adapter-s3/issues/new)
+[open an issue](https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3/issues/new)
 for discussion before you spend the time to submit a pull request.
 
 ## Development
 
 ### Project setup
 
-1. [Fork this repository](https://github.com/colinmeinke/ghost-storage-adapter-s3/fork)
+1. [Fork this repository](https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3/fork)
 2. Clone your fork:
    `git clone git@github.com:your-username/ghost-storage-adapter-s3.git && cd ghost-storage-adapter-s3`
 3. Install the dependencies: `npm install`

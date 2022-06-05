@@ -1,8 +1,8 @@
 {
   "author": {
-    "name": "Colin Meinke",
-    "email": "hello@colinmeinke.com",
-    "url": "https://colinmeinke.com"
+    "name": "vo0doo",
+    "email": "admin@stgrib.ru",
+    "url": "https://blog.vo.dedyn.io"
   },
   "babel": {
     "plugins": [
@@ -24,7 +24,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/colinmeinke/ghost-storage-adapter-s3/issues"
+    "url": "https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3/issues"
   },
   "config": {
     "commitizen": {
@@ -35,7 +35,7 @@
     "aws-sdk": "^2.331.0",
     "ghost-storage-base": "0.0.1"
   },
-  "description": "An AWS S3 storage adapter for Ghost 0.10+",
+  "description": "An Timeweb S3 storage adapter for Ghost 0.10+",
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -48,7 +48,7 @@
     "standard": "^8.3.0",
     "travis-deploy-once": "^5.0.2"
   },
-  "homepage": "https://github.com/colinmeinke/ghost-storage-adapter-s3#readme",
+  "homepage": "https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3#readme",
   "license": "ISC",
   "keywords": [
     "adapter",
@@ -58,10 +58,10 @@
     "storage"
   ],
   "main": "index.js",
-  "name": "ghost-storage-adapter-s3",
+  "name": "ghost-timeweb-storage-adapter-s3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/colinmeinke/ghost-storage-adapter-s3.git"
+    "url": "https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3.git"
   },
   "scripts": {
     "build": "babel ./src/index.js --out-file ./index.js",
