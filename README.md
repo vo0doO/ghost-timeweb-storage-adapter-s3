@@ -1,8 +1,8 @@
-# Ghost storage adapter S3
+# Адаптер хранилища Ghost TimeWeb
 
-An AWS S3 storage adapter for Ghost 1.x
+Адаптер хранилища TimeWeb S3 для Ghost 5.x
 
-For Ghost 0.10.x and 0.11.x support check out
+Для получения поддержки Ghost 0.10.x и 0.11.x см.
 [Ghost storage adapter s3 v1.3.0](https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3/releases/tag/v1.3.0).
 
 ## Installation
