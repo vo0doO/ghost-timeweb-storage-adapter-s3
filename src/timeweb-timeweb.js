@@ -1,4 +1,4 @@
-const S3 = require('aws-sdk/clients/s3')
+import { S3 }  from 'aws-sdk/clients/s3'
 
 const file = 'sample.txt'
 const objectKey = 'objectkey'
@@ -10,6 +10,7 @@ const metaParams = { Bucket: bucketParams.Bucket, Key: objectKey }
 const copyParams = { Bucket: bucketParams.Bucket, CopySource: `${bucketParams.Bucket}/${objectKey}`, Key: copyObjectKey }
 
 console.log('Создание клиента')
+
 const s3 = new S3({
   accessKeyId: '<account_name>', // <--- заменить
   secretAccessKey: '<secret_key>', // <--- заменить
