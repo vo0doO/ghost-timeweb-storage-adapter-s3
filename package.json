@@ -30,7 +30,9 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1035.0",
-    "ghost-storage-base": "0.0.1"
+    "dotenv": "^16.0.1",
+    "ghost-storage-base": "0.0.1",
+    "rxjs": "^7.5.5"
   },
   "description": "An Timeweb S3 storage adapter for Ghost 0.10+",
   "devDependencies": {
