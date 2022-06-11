@@ -1,89 +1,133 @@
-// @ts-ignore
-
-const StorageBase = require('ghost-storage-base'); 
-const S3 = require('aws-sdk/clients/s3')
-
-const file = 'sample.txt'
-const objectKey = 'objectkey'
-const copyObjectKey = 'objectkeycopy'
-const bucketParams = { Bucket: 'cf33522-805b4cab-f7bc-4a33-87fe-7d81eca50810' } // <--- заменить
-const uploadParams = { Bucket: bucketParams.Bucket, Key: '', Body: '' }
-const createParams = { Bucket: bucketParams.Bucket, Key: objectKey, Body: 'test_body123' }
-const metaParams = { Bucket: bucketParams.Bucket, Key: objectKey }
-const copyParams = { Bucket: bucketParams.Bucket, CopySource: `${bucketParams.Bucket}/${objectKey}`, Key: copyObjectKey }
-
-console.log('Создание клиента')
-const s3 = new S3({
-  accessKeyId: 'cf33522',
-  secretAccessKey: 'sycd-6svgvvqewudsnlsuxysaywyyaf1',
-  endpoint: 'https://s3.timeweb.com/',
-  s3ForcePathStyle: true,
-  region: 'ru-1',
-  apiVersion: 'latest',
-})
+require('dotenv').config();
+const rx = require("rxjs");
+const S3 = require("aws-sdk/clients/s3");
+const StorageBase = require("ghost-storage-base");
+const env = require('process').env;
 
 
-class Store extends StorageBase {
-    constructor(s3) {
-        super()
-        this.s3 = s3
+/**
+ * Author: @vo0doO <@kirsanov.bvt@gmail.com> 
+ * @param {object} config
+ *      - @param {string} accessKeyId 
+ *      - @param {string} secretAccessKey 
+ *      - @param {string} endpoint 
+ *      - @param {string} s3ForcePathStyle 
+ *      - @param {string} region 
+ *      - @param {string} apiVersion 
+ *      - @param {string} objectKey 
+ * @param {module} S3
+ */
+
+class GhostTimeWebStorageAdapterS3 extends StorageBase {
+
+    constructor( config = {} ) {
+        super(config);
+    
+        const {
+            objectKey,
+            copyObjectKey,
+            accessKeyId,
+            secretAccessKey,
+            endpoint,
+            s3ForcePathStyle,
+            region,
+            apiVersion,
+            S3
+        } = config
+
+        this.objectKey = objectKey
+        this.copyObjectKey = copyObjectKey
+        this.bucketParams = { Bucket: bucket }
+        this.uploadParams = { Bucket: this.bucketParams.Bucket, Key: "", Body: "" }
+        this.createParams = { Bucket: this.bucketParams.Bucket, Key: this.objectKey, Body: 'test_body123' }
+        this.metaParams = { Bucket: this.bucketParams.Bucket, Key: this.objectKey }
+        this.copyParams = { Bucket: this.bucketParams.Bucket, CopySource: `${this.bucketParams.Bucket}/${this.objectKey}`, Key: this.copyObjectKey }
+        this.accessKeyId = accessKeyId,
+        this.secretAccessKey = secretAccessKey,
+        this.endpoint = endpoint,
+        this.s3ForcePathStyle = s3ForcePathStyle,
+        this.region = region,
+        this.apiVersion = apiVersion
     }
 
-    async exist(fileName) {
-        if (fileName == 'undefined') {
-            console.log("Нет названия искомого файла");
-            return
-        }
 
+    /**
+     * @param {*} fileName Название искомого файла
+     * @param {*} targetDir Название искомой папки
+     * @returns {bool} true или false 
+     */
+    async exists(fileName, targetDir) {
         try {
+            if (fileName == "undefined") {
+                throw new Error("Нет названия искомого файла");
+            }
 
-            var req = await this.s3.listObjects(bucketParams).promise();
-            var res = await objList.$response
-            var data = await resp.data
+            else {
+                this.getSanitizedFileName(fileName)
+            }
+
+            var resp = await this.s3.listObjects(this.bucketParams).promise();
+            resp = resp.$response
+            var data = await resp.data;
+            var contents = await data.Contents
             var files = new Map();
 
-            data.forEach((file, index) => {
-                try {
-                    data.Contents.forEach((file, idx)=>{
-                        files.set(file.Key.split('/'), idx)
-                        })
-                    }
-                    catch(e) {
-                        throw new Error(`Error in ${file}`)
-                    }})
+            contents.forEach((file, idx) => { // обходим в цикле полученный список
+                files.set(file.Key.split("/"), idx); // составляем карту файлов и папок  
                 }
+            );
 
-        catch (e) {
-            throw new Error(error) 
+            
+
+        } catch (e) {
+            throw new Error(error);
         }
     }
-    
-    save() {
+
+    async save() {
         return new Promise(
-            (resolve)=>{
-                return
+            (resolve) => {
+                return;
             },
-            (reject)=> {
-                return
-            },
-        )
+            (reject) => {
+                return;
+            }
+        );
     }
 
-    serve() {
-        return
+    async serve() {
+        return;
     }
 
-    delete() {
-        return
+    async delete() {
+        return;
     }
 
-    read() {
-        return
+    async read() {
+        return;
     }
 }
 
-var s = new Store(s3);
+async function main() {
+    
 
-var ex = s.exist("config.js");
+        const s = new TimeWebStorageAdapter(
+            env.accessKeyId,
+            env.secretAccessKey,
+            env.endpoint,
+            env.s3ForcePathStyle,
+            env.region,
+            env.apiVersion,
+            env.objectKey,
+            env.copyObjectKey,
+            env.bucket,
+            env.uploadParams,
+            env.metaParams
+        )
+    
+        var ex = s.exists("config.js");
+    
+        console.log(ex);
+    }
 
-console.log(ex)
+main()
