@@ -2,6 +2,7 @@ import AWS from 'aws-sdk'
 import BaseStore from 'ghost-storage-base'
 import { join } from 'path'
 import { readFile } from 'fs'
+import 'dotenv'
 
 const readFileAsync = fp => new Promise((resolve, reject) => readFile(fp, (err, data) => err ? reject(err) : resolve(data)))
 const stripLeadingSlash = s => s.indexOf('/') === 0 ? s.substring(1) : s
@@ -29,10 +30,11 @@ class Store extends BaseStore {
     this.accessKeyId = accessKeyId
     this.secretAccessKey = secretAccessKey
     this.region = process.env.AWS_DEFAULT_REGION || region
-    this.bucket = process.env.GHOST_STORAGE_ADAPTER_S3_BUCKET || bucket
+
+    this.bucket = process.env.GHOST_STORAGE_ADAPTER_S3_PATH_BUCKET || bucket
 
     // Дополнительные конфигурации
-    this.host = `https://s3.timeweb.com/${this.bucket}`
+    this.host = `https://s3.timeweb.com/`
     this.pathPrefix = stripLeadingSlash(process.env.GHOST_STORAGE_ADAPTER_S3_PATH_PREFIX || pathPrefix || '')
     this.endpoint = process.env.GHOST_STORAGE_ADAPTER_S3_ENDPOINT || endpoint || ''
     this.serverSideEncryption = process.env.GHOST_STORAGE_ADAPTER_S3_SSE || serverSideEncryption || ''
