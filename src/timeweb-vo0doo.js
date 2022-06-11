@@ -1,25 +1,28 @@
-require('dotenv').config();
 const rx = require("rxjs");
-const S3 = require("aws-sdk/clients/s3");
-const StorageBase = require("ghost-storage-base");
+require('dotenv').config();
+import { join } from 'path'
+import { readFile } from 'fs'
 const env = require('process').env;
+import { S3 } from 'aws-sdk/clients/s3'
+import { StorageBase } from 'ghost-storage-base'; 
 
 
 /**
- * Author: @vo0doO <@kirsanov.bvt@gmail.com> 
- * @param {object} config
- *      - @param {string} accessKeyId 
- *      - @param {string} secretAccessKey 
- *      - @param {string} endpoint 
- *      - @param {string} s3ForcePathStyle 
- *      - @param {string} region 
- *      - @param {string} apiVersion 
- *      - @param {string} objectKey 
- * @param {module} S3
+ * ## GhostTimeWebStorageAdapterS3
  */
-
 class GhostTimeWebStorageAdapterS3 extends StorageBase {
-
+/**
+ * 
+ * @param {Object} config
+ * @param {String} config.accessKeyId
+ * @param {String} config.secretAccessKey
+ * @param {String} config.endpoint
+ * @param {String} config.s3ForcePathStyle
+ * @param {String} config.region
+ * @param {String} config.apiVersion
+ * @param {String} config.objectKey
+ * @param {Module} S3
+ */
     constructor( config = {} ) {
         super(config);
     
@@ -35,23 +38,27 @@ class GhostTimeWebStorageAdapterS3 extends StorageBase {
             S3
         } = config
 
-        this.objectKey = objectKey
-        this.copyObjectKey = copyObjectKey
-        this.bucketParams = { Bucket: bucket }
+        this.objectKey = config.objectKey
+        this.copyObjectKey = config.copyObjectKey
+        this.bucketParams = { Bucket: config.bucket }
         this.uploadParams = { Bucket: this.bucketParams.Bucket, Key: "", Body: "" }
         this.createParams = { Bucket: this.bucketParams.Bucket, Key: this.objectKey, Body: 'test_body123' }
         this.metaParams = { Bucket: this.bucketParams.Bucket, Key: this.objectKey }
         this.copyParams = { Bucket: this.bucketParams.Bucket, CopySource: `${this.bucketParams.Bucket}/${this.objectKey}`, Key: this.copyObjectKey }
-        this.accessKeyId = accessKeyId,
-        this.secretAccessKey = secretAccessKey,
-        this.endpoint = endpoint,
-        this.s3ForcePathStyle = s3ForcePathStyle,
-        this.region = region,
-        this.apiVersion = apiVersion
+        this.accessKeyId = config.accessKeyId,
+        this.secretAccessKey = config.secretAccessKey,
+        this.endpoint = config.endpoint,
+        this.s3ForcePathStyle = config.s3ForcePathStyle,
+        this.region = config.region,
+        this.apiVersion = config.apiVersion
     }
 
 
     /**
+     * ## Проверяет есть ли указанный файл в аказанной папке
+     * 
+     * ## 
+     * 
      * @param {*} fileName Название искомого файла
      * @param {*} targetDir Название искомой папки
      * @returns {bool} true или false 
