@@ -32,7 +32,13 @@
     "aws-sdk": "^2.1035.0",
     "dotenv": "^16.0.1",
     "ghost-storage-base": "0.0.1",
-    "rxjs": "^7.5.5"
+    "rxjs": "^7.5.5",
+    "@types/node": "^14.0.23",
+    "babel-cli": "^6.14.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-preset-env": "^1.6.0"
+
   },
   "description": "An Timeweb S3 storage adapter for Ghost 0.10+",
   "devDependencies": {
@@ -61,7 +67,7 @@
   },
   "scripts": {
     "debug": "npx nodemon",
-    "build": "npx nodemon babel ./src/timeweb-vo0doo.js --out-file ./timeweb-vo0doo-run.js",
+    "build": "babel ./src/timeweb-vo0doo.js --out-file ./timeweb-vo0doo-run.js",
     "commit": "git-cz",
     "fix": "standard --fix",
     "lint": "standard --verbose | snazzy",
