@@ -58,15 +58,15 @@
     "s3",
     "storage"
   ],
-  "main": "run.js",
+  "main": "src/index.bundle.js",
   "name": "ghost-timeweb-storage-adapter-s3",
   "repository": {
     "type": "git",
     "url": "https://github.com/vo0doo/ghost-timeweb-storage-adapter-s3.git"
   },
   "scripts": {
-    "debug": "npx nodemon",
-    "build": "npx nodemon babel ./src/timeweb-vo0doo.js --out-file ./timeweb-vo0doo-run.js",
+    "debug": "npx nodemon ./src/index.bundle.js",
+    "build": "npx babel ./src/index.js --out-file ./src/index.bundle.js",
     "commit": "git-cz",
     "fix": "standard --fix",
     "lint": "standard --verbose | snazzy",
