@@ -1,8 +1,8 @@
 const AWS = require('aws-sdk')
 const BaseStore = require('ghost-storage-base')
-const { join } = require('path')
+const { join, default: path } = require('path')
 const { readFile } = require('fs')
-require('dotenv').config()
+require('dotenv').config(".env")
 
 const readFileAsync = fp => new Promise((resolve, reject) => readFile(fp, (err, data) => err ? reject(err) : resolve(data)))
 const stripLeadingSlash = s => s.indexOf('/') === 0 ? s.substring(1) : s
