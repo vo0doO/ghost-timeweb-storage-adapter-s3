@@ -1,8 +1,8 @@
 const AWS = require('aws-sdk')
 const BaseStore = require('ghost-storage-base')
-const { join, default: path } = require('path')
+const { join } = require('path')
 const { readFile } = require('fs')
-require('dotenv').config(".env")
+require('dotenv').config('.env')
 
 const readFileAsync = fp => new Promise((resolve, reject) => readFile(fp, (err, data) => err ? reject(err) : resolve(data)))
 const stripLeadingSlash = s => s.indexOf('/') === 0 ? s.substring(1) : s
@@ -14,7 +14,7 @@ class Store extends BaseStore {
 
     const {
       accessKeyId,
-      assetHost,
+      // assetHost,
       bucket,
       pathPrefix,
       region,
@@ -27,20 +27,20 @@ class Store extends BaseStore {
     } = config
 
     // Совместимость с переменными среды aws-sdk по умолчанию
-    this.accessKeyId = process.env.accessKeyId
-    this.secretAccessKey = process.env.secretAccessKey
-    this.region = process.env.AWS_DEFAULT_REGION || process.env.region
+    this.accessKeyId = accessKeyId
+    this.secretAccessKey = secretAccessKey
+    this.region = process.env.AWS_DEFAULT_REGION || region
 
-    this.bucket = process.env.GHOST_STORAGE_ADAPTER_S3_PATH_BUCKET || process.env.bucket
+    this.bucket = process.env.GHOST_STORAGE_ADAPTER_S3_PATH_BUCKET || bucket
 
     // Дополнительные конфигурации
     this.host = `https://s3.timeweb.com/`
-    this.pathPrefix = stripLeadingSlash(process.env.GHOST_STORAGE_ADAPTER_S3_PATH_PREFIX || process.env.pathPrefix || '')
-    this.endpoint = process.env.GHOST_STORAGE_ADAPTER_S3_ENDPOINT || process.env.endpoint || ''
-    this.serverSideEncryption = process.env.GHOST_STORAGE_ADAPTER_S3_SSE || process.env.serverSideEncryption || ''
-    this.s3ForcePathStyle = Boolean(process.env.GHOST_STORAGE_ADAPTER_S3_FORCE_PATH_STYLE) || Boolean(process.env.forcePathStyle) || false
+    this.pathPrefix = stripLeadingSlash(process.env.GHOST_STORAGE_ADAPTER_S3_PATH_PREFIX || pathPrefix || '')
+    this.endpoint = process.env.GHOST_STORAGE_ADAPTER_S3_ENDPOINT || endpoint || ''
+    this.serverSideEncryption = process.env.GHOST_STORAGE_ADAPTER_S3_SSE || serverSideEncryption || ''
+    this.s3ForcePathStyle = Boolean(process.env.GHOST_STORAGE_ADAPTER_S3_FORCE_PATH_STYLE) || Boolean(forcePathStyle) || false
     this.signatureVersion = process.env.GHOST_STORAGE_ADAPTER_S3_SIGNATURE_VERSION || signatureVersion || 'v4'
-    this.acl = process.env.GHOST_STORAGE_ADAPTER_S3_ACL || process.env.acl || 'public-read'
+    this.acl = process.env.GHOST_STORAGE_ADAPTER_S3_ACL || acl || 'public-read'
   }
 
   delete (fileName, targetDir) {
